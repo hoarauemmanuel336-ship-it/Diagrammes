@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Épître aux Éphésiens</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0a0a0a}
+body{color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:56px 32px 80px;line-height:1.5}
+.widget{max-width:1240px;margin:0 auto;position:relative}
+
+.global-toggle{
+  position:absolute;top:-24px;right:0;font-size:80px;line-height:1;font-weight:300;
+  color:rgba(255,255,255,.45);background:none;border:none;outline:none;box-shadow:none;
+  padding:0;margin:0;-webkit-appearance:none;appearance:none;cursor:pointer;user-select:none;
+  transform:rotate(-90deg);
+  transition:transform .3s ease,color .25s,text-shadow .25s;
+}
+.global-toggle.collapsed{transform:rotate(90deg)}
+.global-toggle:hover{color:#fff;text-shadow:0 0 14px rgba(255,255,255,.5)}
+
+.banner{text-align:center;padding:48px 20px 64px;cursor:pointer}
+.banner h1{font-size:38px;font-weight:700;letter-spacing:7px;color:#fff;text-transform:uppercase;transition:text-shadow .25s,color .25s}
+.banner .sub{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13px;color:#fff;margin-top:18px;letter-spacing:2.5px;transition:color .25s}
+.banner:hover h1{text-shadow:0 0 18px rgba(255,255,255,.55)}
+
+.section{margin-bottom:48px}
+.section-head{display:flex;align-items:center;gap:16px;padding:8px 0;cursor:pointer}
+.tag{
+  font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13px;font-weight:700;
+  padding:3px 8px;border:1px solid rgba(255,255,255,.7);color:rgba(255,255,255,.7);
+  clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
+  transition:color .25s,border-color .25s;
+}
+.section-head h2{flex:1;font-size:19px;font-weight:700;letter-spacing:3px;color:#fff;text-transform:uppercase;transition:text-shadow .25s,color .25s}
+.chev{
+  font-family:"SF Mono",Menlo,Consolas,monospace;font-size:20px;color:rgba(255,255,255,.45);
+  padding:4px 10px;user-select:none;transform:rotate(90deg);transition:transform .3s,color .25s;
+}
+.section.collapsed .chev{transform:rotate(0)}
+.section-head:hover h2{text-shadow:0 0 12px rgba(255,255,255,.45)}
+.section-head:hover .tag{color:#fff;border-color:#fff}
+.chev:hover{color:#fff}
+
+.separator{height:1px;margin:6px 0 28px;background:linear-gradient(90deg,rgba(255,255,255,.3),transparent)}
+.section-content{padding-top:2px}
+.section.collapsed .section-content,.section.collapsed .separator{display:none}
+
+.section[data-c="b"] .tag{color:#3399FF;border-color:#3399FF}
+.section[data-c="b"] .separator{background:linear-gradient(90deg,#3399FF,transparent)}
+.section[data-c="b"] .section-head:hover .tag{color:#66B3FF;border-color:#66B3FF}
+.section[data-c="b"] .section-head:hover h2{text-shadow:0 0 12px rgba(51,153,255,.55)}
+.section[data-c="b"] .subgroup-head{border-left-color:#3399FF}
+
+.section[data-c="g"] .tag{color:#FFD700;border-color:#FFD700}
+.section[data-c="g"] .separator{background:linear-gradient(90deg,#FFD700,transparent)}
+.section[data-c="g"] .section-head:hover .tag{color:#FFE566;border-color:#FFE566}
+.section[data-c="g"] .section-head:hover h2{text-shadow:0 0 12px rgba(255,215,0,.55)}
+.section[data-c="g"] .subgroup-head{border-left-color:#FFD700}
+
+.section[data-c="p"] .tag{color:#B266FF;border-color:#B266FF}
+.section[data-c="p"] .separator{background:linear-gradient(90deg,#B266FF,transparent)}
+.section[data-c="p"] .section-head:hover .tag{color:#CC99FF;border-color:#CC99FF}
+.section[data-c="p"] .section-head:hover h2{text-shadow:0 0 12px rgba(178,102,255,.55)}
+.section[data-c="p"] .subgroup-head{border-left-color:#B266FF}
+
+.subgroup{margin-bottom:30px}
+.subgroup-head{
+  padding:10px 16px;border-left:3px solid rgba(255,255,255,.35);cursor:pointer;margin-bottom:14px;
+  transition:border-color .25s;
+}
+.subgroup-head .sg-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase;transition:text-shadow .25s,color .25s}
+.subgroup-head .sg-desc{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:11px;color:rgba(255,255,255,.8);margin-top:6px;letter-spacing:1.2px;transition:color .25s}
+.subgroup-head:hover .sg-title{text-shadow:0 0 10px rgba(255,255,255,.45)}
+.subgroup-head:hover .sg-desc{color:#fff}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{
+  background:#000;border:1px solid rgba(255,255,255,.15);padding:16px 18px;cursor:pointer;
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);
+  transition:background .25s,border-color .25s;
+}
+.card .c-title{font-size:12.5px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;transition:color .25s,text-shadow .25s}
+.card .c-ref{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:10.5px;color:rgba(255,255,255,.55);margin-bottom:8px;transition:color .25s}
+.card .c-desc{font-size:13px;color:rgba(255,255,255,.65);line-height:1.5;transition:color .25s}
+.card:hover{background:#0c0c0c;border-color:rgba(255,255,255,.45)}
+.card:hover .c-title{text-shadow:0 0 10px rgba(255,255,255,.45)}
+.card:hover .c-ref{color:rgba(255,255,255,.9)}
+.card:hover .c-desc{color:#fff}
+
+.footer-note{text-align:center;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:3.5px;margin-top:48px;text-transform:uppercase}
+
+.card{position:relative}
+.cp{
+  position:absolute;top:8px;right:10px;
+  font-size:15px;color:rgba(255,255,255,0);
+  cursor:pointer;user-select:none;line-height:1;
+  transition:color .2s;z-index:5;
+}
+.card:hover .cp{color:rgba(255,255,255,.4)}
+.cp:hover{color:#fff !important}
+.cp.ok{color:#3399FF !important}
+</style>
+</head>
+<body>
+<div class="widget">
+
+<span class="global-toggle" id="gToggle" tabindex="0" role="button">→</span>
+
+<div class="banner" data-q="Peux-tu me faire une présentation complète et approfondie de l'épître aux Éphésiens : son contexte, sa structure en deux grandes parties, ses thèmes théologiques majeurs et sa place singulière dans le corpus paulinien ?">
+  <h1>Épître aux Éphésiens</h1>
+  <div class="sub">LETTRE DE PAUL · CAPTIVITÉ · CA. 60-62</div>
+</div>
+
+<!-- 01 CONTEXTE -->
+<div class="section" data-c="n">
+  <div class="section-head" data-q="Peux-tu me présenter l'ensemble du contexte historique et littéraire de l'épître aux Éphésiens : auteur, date, lieu de rédaction, destinataires, genre et rapport avec les autres lettres de captivité ?">
+    <span class="tag">01</span>
+    <h2>Contexte et identité</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+    <div class="cards">
+      <div class="card" data-q="Quelle est la position traditionnelle sur la paternité paulinienne de l'épître aux Éphésiens, et comment répondre aux objections modernes qui la contestent ?">
+        <div class="c-title">Paternité paulinienne</div>
+        <div class="c-ref">Éphésiens 1:1 · 3:1</div>
+        <div class="c-desc">Paul se déclare apôtre dès l'ouverture. La tradition patristique et catholique tient la paternité paulinienne malgré les objections modernes.</div>
+      </div>
+      <div class="card" data-q="Quand et d'où saint Paul a-t-il rédigé l'épître aux Éphésiens, et quelles sont les hypothèses sur la captivité durant laquelle elle a été écrite ?">
+        <div class="c-title">Date et lieu</div>
+        <div class="c-ref">CA. 60-62 · ROME</div>
+        <div class="c-desc">Lettre de captivité, probablement écrite depuis Rome durant la première détention romaine, en même temps que Colossiens et Philémon.</div>
+      </div>
+      <div class="card" data-q="À qui s'adresse précisément l'épître aux Éphésiens, et pourquoi certains manuscrits anciens omettent-ils la mention d'Éphèse ? L'hypothèse d'une lettre circulaire est-elle recevable ?">
+        <div class="c-title">Destinataires</div>
+        <div class="c-ref">Éphésiens 1:1</div>
+        <div class="c-desc">Les fidèles d'Éphèse, mais certains manuscrits omettent la mention de la ville, ce qui ouvre l'hypothèse d'une lettre circulaire en Asie Mineure.</div>
+      </div>
+      <div class="card" data-q="À quel genre littéraire appartient l'épître aux Éphésiens : véritable lettre apostolique, homélie baptismale ou traité théologique ?">
+        <div class="c-title">Genre littéraire</div>
+        <div class="c-ref">ÉPÎTRE · HOMÉLIE ?</div>
+        <div class="c-desc">Forme épistolaire classique, mais tonalité liturgique et doctrinale très marquée, proche d'une homélie ou d'un traité catéchétique.</div>
+      </div>
+      <div class="card" data-q="Quels sont les rapports littéraires et théologiques entre l'épître aux Éphésiens et l'épître aux Colossiens, et pourquoi sont-elles souvent étudiées ensemble ?">
+        <div class="c-title">Rapport avec Colossiens</div>
+        <div class="c-ref">LETTRES JUMELLES</div>
+        <div class="c-desc">Parenté lexicale et thématique frappante avec Colossiens. Deux lettres sœurs qui développent la même christologie cosmique sous des angles différents.</div>
+      </div>
+      <div class="card" data-q="Quelles sont les particularités stylistiques de l'épître aux Éphésiens, avec ses longues phrases liturgiques et son vocabulaire propre ?">
+        <div class="c-title">Langue et style</div>
+        <div class="c-ref">PÉRIODES LONGUES</div>
+        <div class="c-desc">Phrases grecques amples, accumulations de génitifs, vocabulaire solennel. Un ton presque liturgique, unique dans le corpus paulinien.</div>
+      </div>
+      <div class="card" data-q="Quelle est la structure d'ensemble de l'épître aux Éphésiens, et comment s'articulent la partie doctrinale des chapitres 1 à 3 et la partie parénétique des chapitres 4 à 6 ?">
+        <div class="c-title">Structure bipartite</div>
+        <div class="c-ref">CH. 1-3 · CH. 4-6</div>
+        <div class="c-desc">Une moitié doctrinale sur le mystère du Christ et de l'Église, suivie d'une moitié parénétique sur la vie nouvelle qui en découle.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 PROLOGUE ET BÉNÉDICTION -->
+<div class="section" data-c="b">
+  <div class="section-head" data-q="Peux-tu me présenter la structure et la théologie de la première partie de l'épître aux Éphésiens (1:1-23), depuis la salutation jusqu'à la prière pour les fidèles, en montrant le mouvement trinitaire qui la traverse ?">
+    <span class="tag">02</span>
+    <h2>Prologue et bénédiction</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+
+    <div class="subgroup">
+      <div class="subgroup-head" data-q="Que signifie la formule d'ouverture de l'épître aux Éphésiens en 1:1-2, et que révèle-t-elle sur l'identité de Paul comme apôtre et sur les destinataires comme saints ?">
+        <div class="sg-title">Salutation</div>
+        <div class="sg-desc">ÉPHÉSIENS 1:1-2 · ADRESSE APOSTOLIQUE</div>
+      </div>
+    </div>
+
+    <div class="subgroup">
+      <div class="subgroup-head" data-q="Peux-tu m'expliquer la structure et la théologie de l'hymne de bénédiction en Éphésiens 1:3-14, son caractère trinitaire et son mouvement d'ensemble ?">
+        <div class="sg-title">Hymne de bénédiction</div>
+        <div class="sg-desc">ÉPHÉSIENS 1:3-14 · MOUVEMENT TRINITAIRE</div>
+      </div>
+      <div class="cards">
+        <div class="card" data-q="Pourquoi l'épître aux Éphésiens s'ouvre-t-elle par une seule longue phrase en grec (1:3-14) qui fonctionne comme une bénédiction liturgique, et quel est son sens théologique ?">
+          <div class="c-title">Une seule phrase</div>
+          <div class="c-ref">1:3-14 · berakha</div>
+          <div class="c-desc">En grec, un seul souffle de plus de deux cents mots. Forme de bénédiction d'origine juive, reprise et christianisée.</div>
+        </div>
+        <div class="card" data-q="Que signifie l'élection éternelle en Dieu le Père selon Éphésiens 1:4-6, et comment l'Église catholique articule-t-elle cette prédestination avec la liberté humaine ?">
+          <div class="c-title">Élection par le Père</div>
+          <div class="c-ref">Éphésiens 1:4-6</div>
+          <div class="c-desc">Choisis avant la fondation du monde pour être saints et adoptés comme fils, par pure grâce et à la louange de sa gloire.</div>
+        </div>
+        <div class="card" data-q="Quelle est la théologie de la rédemption par le sang du Christ développée en Éphésiens 1:7-12, et que signifie le mystère de la récapitulation de toutes choses dans le Christ ?">
+          <div class="c-title">Rédemption par le Fils</div>
+          <div class="c-ref">Éphésiens 1:7-12</div>
+          <div class="c-desc">Rédemption par le sang, rémission des fautes, révélation du mystère et récapitulation de toutes choses dans le Christ.</div>
+        </div>
+        <div class="card" data-q="Que signifie être scellé du Saint-Esprit comme arrhes de l'héritage en Éphésiens 1:13-14, et quel lien les Pères font-ils avec la chrismation ?">
+          <div class="c-title">Sceau de l'Esprit</div>
+          <div class="c-ref">Éphésiens 1:13-14</div>
+          <div class="c-desc">L'Esprit Saint promis, reçu au baptême, est le sceau et l'avance, les arrhes de l'héritage à venir.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subgroup">
+      <div class="subgroup-head" data-q="Peux-tu me présenter la prière de Paul en Éphésiens 1:15-23, ce qu'il demande pour les fidèles et la christologie cosmique qu'elle déploie ?">
+        <div class="sg-title">Action de grâces et prière</div>
+        <div class="sg-desc">ÉPHÉSIENS 1:15-23 · CHRISTOLOGIE COSMIQUE</div>
+      </div>
+      <div class="cards">
+        <div class="card" data-q="Que demande précisément saint Paul dans sa prière d'Éphésiens 1:17-19, et que signifie l'esprit de sagesse et de révélation pour la connaissance de Dieu ?">
+          <div class="c-title">Prière d'illumination</div>
+          <div class="c-ref">Éphésiens 1:17-19</div>
+          <div class="c-desc">Paul demande l'esprit de sagesse et de révélation, la connaissance de l'espérance et la grandeur de la puissance pour les croyants.</div>
+        </div>
+        <div class="card" data-q="Comment l'épître aux Éphésiens 1:20-22 articule-t-elle la résurrection du Christ, son exaltation à la droite du Père et sa domination sur toutes les puissances ?">
+          <div class="c-title">Résurrection et exaltation</div>
+          <div class="c-ref">Éphésiens 1:20-22</div>
+          <div class="c-desc">Ressuscité et placé à la droite du Père, au-dessus de toute principauté, toute autorité, toute puissance et toute souveraineté.</div>
+        </div>
+        <div class="card" data-q="Que signifie l'affirmation que le Christ est la tête et l'Église son corps et sa plénitude en Éphésiens 1:22-23, et comment cette image structure toute l'ecclésiologie de l'épître ?">
+          <div class="c-title">Tête et corps</div>
+          <div class="c-ref">Éphésiens 1:22-23</div>
+          <div class="c-desc">Le Christ donné comme tête à l'Église qui est son corps, la plénitude de celui qui remplit tout en tous.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 03 GRÂCE ET UNITÉ -->
+<div class="section" data-c="b">
+  <div class="section-head" data-q="Peux-tu me présenter la théologie du chapitre 2 de l'épître aux Éphésiens, depuis le passage de la mort à la vie jusqu'à la réunion des juifs et des païens dans le Christ ?">
+    <span class="tag">03</span>
+    <h2>Grâce et unité</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+
+    <div class="subgroup">
+      <div class="subgroup-head" data-q="Peux-tu me présenter le mouvement théologique d'Éphésiens 2:1-10 qui va de la mort dans le péché à la création nouvelle en Jésus-Christ ?">
+        <div class="sg-title">Du péché à la grâce</div>
+        <div class="sg-desc">ÉPHÉSIENS 2:1-10 · PASSAGE DE LA MORT À LA VIE</div>
+      </div>
+      <div class="cards">
+        <div class="card" data-q="Que signifie être mort par ses fautes et ses péchés selon Éphésiens 2:1-3, et comment les Pères comprennent-ils cette mort spirituelle et la condition sous la colère ?">
+          <div class="c-title">Morts dans le péché</div>
+          <div class="c-ref">Éphésiens 2:1-3</div>
+          <div class="c-desc">État originel décrit sans ménagement : morts par les fautes, asservis aux convoitises, enfants de colère par nature.</div>
+        </div>
+        <div class="card" data-q="Que signifie être vivifié, ressuscité et fait asseoir dans les lieux célestes avec le Christ en Éphésiens 2:4-7, et quelle est la portée sacramentelle de ces affirmations ?">
+          <div class="c-title">Vivifiés avec le Christ</div>
+          <div class="c-ref">Éphésiens 2:4-7</div>
+          <div class="c-desc">Mais Dieu, riche en miséricorde, nous a vivifiés, ressuscités et fait asseoir dans les lieux célestes avec le Christ.</div>
+        </div>
+        <div class="card" data-q="Comment comprendre la formule d'Éphésiens 2:8-10, c'est par la grâce que vous êtes sauvés par le moyen de la foi, et comment l'Église catholique l'articule-t-elle avec la doctrine des œuvres ?">
+          <div class="c-title">Sauvés par grâce</div>
+          <div class="c-ref">Éphésiens 2:8-10</div>
+          <div class="c-desc">Le salut est don de Dieu par la foi, non des œuvres. Mais nous sommes créés pour les bonnes œuvres préparées d'avance.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subgroup">
+      <div class="subgroup-head" data-q="Peux-tu me présenter la théologie de la réconciliation des juifs et des païens dans l'unique Église développée en Éphésiens 2:11-22 ?">
+        <div class="sg-title">Juifs et païens réunis</div>
+        <div class="sg-desc">ÉPHÉSIENS 2:11-22 · UN SEUL PEUPLE NOUVEAU</div>
+      </div>
+      <div class="cards">
+        <div class="card" data-q="Que représente le mur de séparation abattu par le Christ en Éphésiens 2:14, et à quoi faisait-il référence concrètement dans le judaïsme du premier siècle ?">
+          <div class="c-title">Mur de séparation abattu</div>
+          <div class="c-ref">Éphésiens 2:14</div>
+          <div class="c-desc">Image puissante, peut-être allusion au muret du Temple qui séparait le parvis des païens, détruit par la croix.</div>
+        </div>
+        <div class="card" data-q="Que signifie la création d'un seul homme nouveau à partir des deux peuples en Éphésiens 2:15, et comment cela fonde-t-il l'universalité de l'Église ?">
+          <div class="c-title">Un seul homme nouveau</div>
+          <div class="c-ref">Éphésiens 2:15-16</div>
+          <div class="c-desc">Des deux peuples, le Christ fait un seul homme nouveau, réconciliant tous avec Dieu en un seul corps par la croix.</div>
+        </div>
+        <div class="card" data-q="Que signifie la paix annoncée aux lointains et aux proches en Éphésiens 2:17-18, et comment l'accès unique au Père par un seul Esprit définit-il la vie ecclésiale ?">
+          <div class="c-title">Paix et accès au Père</div>
+          <div class="c-ref">Éphésiens 2:17-18</div>
+          <div class="c-desc">La paix annoncée aux lointains et aux proches. Par lui, les uns et les autres ont accès au Père dans un seul Esprit.</div>
+        </div>
+        <div class="card" data-q="Comment Paul développe-t-il l'image de l'édifice et du temple saint construit sur les apôtres et les prophètes, avec le Christ comme pierre angulaire en Éphésiens 2:19-22 ?">
+          <div class="c-title">Temple et édifice</div>
+          <div class="c-ref">Éphésiens 2:19-22</div>
+          <div class="c-desc">Concitoyens des saints, édifiés sur les apôtres et les prophètes, le Christ étant la pierre angulaire, temple saint dans le Seigneur.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 04 LE MINISTÈRE DU MYSTÈRE -->
+<div class="section" data-c="b">
+  <div class="section-head" data-q="Peux-tu me présenter l'ensemble du chapitre 3 de l'épître aux Éphésiens : le ministère de Paul auprès des nations, le mystère révélé et la prière finale pour la plénitude ?">
+    <span class="tag">04</span>
+    <h2>Le ministère du mystère</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+    <div class="cards">
+      <div class="card" data-q="Que signifie le mystère du Christ révélé à Paul par révélation selon Éphésiens 3:1-7, et comment les Pères comprennent-ils le contenu précis de ce mystère ?">
+        <div class="c-title">Mystère révélé à Paul</div>
+        <div class="c-ref">Éphésiens 3:1-7</div>
+        <div class="c-desc">Le mystère caché depuis les siècles, maintenant révélé aux saints apôtres et prophètes : les nations cohéritières avec Israël.</div>
+      </div>
+      <div class="card" data-q="Pourquoi Paul se décrit-il comme le moindre des saints chargé d'annoncer aux nations les richesses insondables du Christ en Éphésiens 3:8-13, et que signifie cette sagesse multiforme manifestée aux puissances célestes ?">
+        <div class="c-title">Annonce aux nations</div>
+        <div class="c-ref">Éphésiens 3:8-13</div>
+        <div class="c-desc">Paul, le moindre des saints, est chargé d'annoncer les richesses insondables du Christ et la sagesse multiforme de Dieu.</div>
+      </div>
+      <div class="card" data-q="Que signifie la prière de Paul en Éphésiens 3:14-19 pour que les fidèles connaissent l'amour du Christ qui surpasse toute connaissance et soient remplis de toute la plénitude de Dieu ?">
+        <div class="c-title">Prière pour la plénitude</div>
+        <div class="c-ref">Éphésiens 3:14-19</div>
+        <div class="c-desc">Paul fléchit les genoux devant le Père, priant pour que le Christ habite dans les cœurs et que les fidèles connaissent l'amour qui surpasse toute connaissance.</div>
+      </div>
+      <div class="card" data-q="Quelle est la fonction de la doxologie d'Éphésiens 3:20-21 dans l'architecture de l'épître, et comment conclut-elle la première partie doctrinale avant la charnière parénétique du chapitre 4 ?">
+        <div class="c-title">Doxologie</div>
+        <div class="c-ref">Éphésiens 3:20-21</div>
+        <div class="c-desc">À celui qui peut faire infiniment au-delà de ce que nous demandons, gloire dans l'Église et dans le Christ Jésus pour tous les siècles.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 L'UNITÉ DU CORPS -->
+<div class="section" data-c="g">
+  <div class="section-head" data-q="Peux-tu me présenter la théologie de l'unité de l'Église développée en Éphésiens 4:1-16, avec les sept unités, les charismes et la croissance du corps vers la stature parfaite du Christ ?">
+    <span class="tag">05</span>
+    <h2>L'unité du corps</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+    <div class="cards">
+      <div class="card" data-q="Comment comprendre l'exhortation de Paul en Éphésiens 4:1-3 à marcher d'une manière digne de l'appel reçu, dans l'humilité, la douceur, la patience et le souci de garder l'unité de l'Esprit ?">
+        <div class="c-title">Appel à l'unité</div>
+        <div class="c-ref">Éphésiens 4:1-3</div>
+        <div class="c-desc">Marcher d'une manière digne de l'appel, en toute humilité et douceur, avec patience, vous supportant dans la charité.</div>
+      </div>
+      <div class="card" data-q="Peux-tu me développer le sens théologique des sept unités énumérées en Éphésiens 4:4-6 : un seul corps, un seul Esprit, un seul Seigneur, une seule foi, un seul baptême, un seul Dieu et Père ?">
+        <div class="c-title">Les sept unités</div>
+        <div class="c-ref">Éphésiens 4:4-6</div>
+        <div class="c-desc">Un seul corps, un seul Esprit, une seule espérance, un seul Seigneur, une seule foi, un seul baptême, un seul Dieu et Père.</div>
+      </div>
+      <div class="card" data-q="Que signifie la descente et la remontée du Christ évoquées en Éphésiens 4:8-10 à partir du Psaume 68, et quelles sont les interprétations patristiques de cette descente ?">
+        <div class="c-title">Descente et remontée</div>
+        <div class="c-ref">Éphésiens 4:8-10</div>
+        <div class="c-desc">Citation du Psaume 68 sur celui qui monte dans les hauteurs et distribue des dons. Les Pères y lisent la descente aux enfers et l'Ascension.</div>
+      </div>
+      <div class="card" data-q="Que signifient les dons faits aux hommes en Éphésiens 4:11-13, apôtres, prophètes, évangélistes, pasteurs et docteurs, et quelle est leur fonction dans l'édification du corps du Christ ?">
+        <div class="c-title">Charismes et ministères</div>
+        <div class="c-ref">Éphésiens 4:11-13</div>
+        <div class="c-desc">Apôtres, prophètes, évangélistes, pasteurs et docteurs, donnés pour l'équipement des saints et l'édification du corps du Christ.</div>
+      </div>
+      <div class="card" data-q="Comment Paul décrit-il la croissance du corps en Éphésiens 4:14-16, depuis l'état d'enfance jusqu'à la stature parfaite du Christ, et quelle est la théologie de la véracité dans la charité ?">
+        <div class="c-title">Croissance dans le Christ</div>
+        <div class="c-ref">Éphésiens 4:14-16</div>
+        <div class="c-desc">Ne plus être des enfants ballottés, mais croître en tout vers celui qui est la tête, en vivant la vérité dans la charité.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 L'HOMME NOUVEAU -->
+<div class="section" data-c="g">
+  <div class="section-head" data-q="Peux-tu me présenter la grande exhortation morale d'Éphésiens 4:17 à 5:20 sur le dépouillement du vieil homme, le revêtement de l'homme nouveau et la marche dans la lumière ?">
+    <span class="tag">06</span>
+    <h2>L'homme nouveau</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+    <div class="cards">
+      <div class="card" data-q="Que signifie dépouiller le vieil homme et revêtir l'homme nouveau créé selon Dieu en Éphésiens 4:17-24, et comment les Pères l'articulent-ils avec la grâce baptismale et le progrès spirituel ?">
+        <div class="c-title">Vieil homme, homme nouveau</div>
+        <div class="c-ref">Éphésiens 4:17-24</div>
+        <div class="c-desc">Dépouiller le vieil homme corrompu par les convoitises trompeuses et revêtir l'homme nouveau créé selon Dieu dans la justice et la sainteté.</div>
+      </div>
+      <div class="card" data-q="Quelles sont les règles concrètes de la vie nouvelle énumérées en Éphésiens 4:25-32, et pourquoi Paul passe-t-il ainsi des principes généraux aux cas précis comme le mensonge, la colère ou le vol ?">
+        <div class="c-title">Règles concrètes</div>
+        <div class="c-ref">Éphésiens 4:25-32</div>
+        <div class="c-desc">Rejeter le mensonge, maîtriser la colère, ne pas voler, parler pour édifier, ne pas attrister l'Esprit Saint, se pardonner comme Dieu pardonne.</div>
+      </div>
+      <div class="card" data-q="Que signifie l'exhortation à être imitateurs de Dieu comme des enfants bien-aimés en Éphésiens 5:1-2, et comment cette imitation passe-t-elle par la marche dans l'amour du Christ qui s'est livré ?">
+        <div class="c-title">Imitateurs de Dieu</div>
+        <div class="c-ref">Éphésiens 5:1-2</div>
+        <div class="c-desc">Soyez imitateurs de Dieu comme des enfants bien-aimés, et marchez dans l'amour, à l'exemple du Christ qui s'est livré pour nous.</div>
+      </div>
+      <div class="card" data-q="Comment comprendre l'opposition entre œuvres stériles des ténèbres et fruit de la lumière en Éphésiens 5:3-14, et le sens du fragment liturgique Réveille-toi, toi qui dors cité à la fin de ce passage ?">
+        <div class="c-title">Enfants de lumière</div>
+        <div class="c-ref">Éphésiens 5:3-14</div>
+        <div class="c-desc">Ne plus participer aux œuvres stériles des ténèbres, marcher comme des enfants de lumière dont le fruit est bonté, justice et vérité.</div>
+      </div>
+      <div class="card" data-q="Que signifie vivre comme des sages qui rachètent le temps en Éphésiens 5:15-20, et quelle est la portée liturgique des psaumes, hymnes et cantiques spirituels mentionnés ?">
+        <div class="c-title">Vivre comme des sages</div>
+        <div class="c-ref">Éphésiens 5:15-20</div>
+        <div class="c-desc">Marcher comme des sages, racheter le temps, être remplis de l'Esprit et chanter des psaumes, hymnes et cantiques spirituels.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 07 LE CODE DOMESTIQUE -->
+<div class="section" data-c="g">
+  <div class="section-head" data-q="Peux-tu me présenter le code domestique d'Éphésiens 5:21 à 6:9, sa logique spécifiquement chrétienne et sa différence profonde avec les codes gréco-romains contemporains de Paul ?">
+    <span class="tag">07</span>
+    <h2>Le code domestique</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+    <div class="cards">
+      <div class="card" data-q="Que signifie l'exhortation liminaire à la soumission mutuelle dans la crainte du Christ en Éphésiens 5:21, et comment gouverne-t-elle tout le code domestique qui suit ?">
+        <div class="c-title">Soumission mutuelle</div>
+        <div class="c-ref">Éphésiens 5:21</div>
+        <div class="c-desc">Charnière fondamentale. Soumettez-vous les uns aux autres dans la crainte du Christ. Tout le code domestique en découle.</div>
+      </div>
+      <div class="card" data-q="Peux-tu me développer le grand mystère du Christ et de l'Église révélé dans le mariage selon Éphésiens 5:22-33, et la théologie sacramentelle catholique qui en découle ?">
+        <div class="c-title">Époux et épouses</div>
+        <div class="c-ref">Éphésiens 5:22-33</div>
+        <div class="c-desc">Le mariage image l'union du Christ et de l'Église. Grand mystère sacramentel qui fonde la théologie catholique du mariage.</div>
+      </div>
+      <div class="card" data-q="Que dit Paul sur le rapport entre parents et enfants en Éphésiens 6:1-4, et pourquoi s'adresse-t-il particulièrement aux pères avec cette injonction de ne pas irriter leurs enfants ?">
+        <div class="c-title">Parents et enfants</div>
+        <div class="c-ref">Éphésiens 6:1-4</div>
+        <div class="c-desc">Les enfants obéissent dans le Seigneur. Les pères ne doivent pas irriter leurs enfants mais les élever dans la correction du Seigneur.</div>
+      </div>
+      <div class="card" data-q="Comment comprendre les instructions de Paul aux serviteurs et aux maîtres en Éphésiens 6:5-9, et quelle est leur portée théologique dans le monde antique et au-delà ?">
+        <div class="c-title">Maîtres et serviteurs</div>
+        <div class="c-ref">Éphésiens 6:5-9</div>
+        <div class="c-desc">Les serviteurs obéissent comme au Christ, les maîtres renoncent aux menaces sachant qu'ils ont un Maître commun dans les cieux.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 08 LE COMBAT SPIRITUEL -->
+<div class="section" data-c="g">
+  <div class="section-head" data-q="Peux-tu me présenter la finale de l'épître aux Éphésiens, avec l'armure de Dieu, la prière en tout temps et les salutations (6:10-24) ?">
+    <span class="tag">08</span>
+    <h2>Le combat spirituel</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+    <div class="cards">
+      <div class="card" data-q="Que signifie l'exhortation à être fort dans le Seigneur et dans la puissance de sa force en Éphésiens 6:10-13, et que désignent les puissances spirituelles du mal dans les lieux célestes ?">
+        <div class="c-title">L'exhortation au combat</div>
+        <div class="c-ref">Éphésiens 6:10-13</div>
+        <div class="c-desc">Notre lutte n'est pas contre la chair et le sang, mais contre les principautés et les esprits du mal dans les lieux célestes.</div>
+      </div>
+      <div class="card" data-q="Peux-tu me développer pièce par pièce la symbolique spirituelle de l'armure de Dieu en Éphésiens 6:14-17 : ceinture de vérité, cuirasse de justice, chaussures de l'Évangile, bouclier de la foi, casque du salut et glaive de l'Esprit ?">
+        <div class="c-title">L'armure de Dieu</div>
+        <div class="c-ref">Éphésiens 6:14-17</div>
+        <div class="c-desc">Ceinture de vérité, cuirasse de justice, chaussures de l'Évangile, bouclier de la foi, casque du salut, glaive de l'Esprit qui est la parole de Dieu.</div>
+      </div>
+      <div class="card" data-q="Que dit Paul sur la prière en tout temps dans l'Esprit en Éphésiens 6:18-20, et pourquoi demande-t-il des prières pour son propre ministère et sa parole en captivité ?">
+        <div class="c-title">Prière en tout temps</div>
+        <div class="c-ref">Éphésiens 6:18-20</div>
+        <div class="c-desc">Prier en tout temps dans l'Esprit, veiller avec persévérance pour tous les saints, et pour Paul lui-même ambassadeur enchaîné.</div>
+      </div>
+      <div class="card" data-q="Qui est Tychique et quelle est sa fonction selon Éphésiens 6:21-22, tant pour la communauté que pour Paul lui-même ?">
+        <div class="c-title">Envoi de Tychique</div>
+        <div class="c-ref">Éphésiens 6:21-22</div>
+        <div class="c-desc">Tychique, frère bien-aimé et fidèle serviteur dans le Seigneur, porteur des nouvelles de Paul et chargé de consoler la communauté.</div>
+      </div>
+      <div class="card" data-q="Quelle est la portée théologique de la salutation finale d'Éphésiens 6:23-24, avec sa bénédiction de paix, d'amour et de grâce sur tous ceux qui aiment le Seigneur d'un amour inaltérable ?">
+        <div class="c-title">Salutation finale</div>
+        <div class="c-ref">Éphésiens 6:23-24</div>
+        <div class="c-desc">Paix aux frères, charité avec foi, grâce à tous ceux qui aiment notre Seigneur Jésus-Christ d'un amour inaltérable.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 09 THÈMES THÉOLOGIQUES -->
+<div class="section" data-c="p">
+  <div class="section-head" data-q="Peux-tu me présenter l'ensemble des thèmes théologiques majeurs qui traversent l'épître aux Éphésiens et en font l'une des lettres les plus denses et les plus influentes du corpus paulinien ?">
+    <span class="tag">09</span>
+    <h2>Thèmes théologiques</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+    <div class="cards">
+      <div class="card" data-q="Que signifie précisément le mot mystère, μυστήριον, dans l'épître aux Éphésiens, et pourquoi ce concept est-il la clef de voûte de toute la lettre ?">
+        <div class="c-title">Le mystère</div>
+        <div class="c-ref">μυστήριον</div>
+        <div class="c-desc">Terme clef, six occurrences. Le dessein éternel de Dieu caché depuis les siècles, maintenant révélé dans le Christ.</div>
+      </div>
+      <div class="card" data-q="Peux-tu me développer le sens théologique du verbe récapituler, ἀνακεφαλαιώσασθαι, en Éphésiens 1:10, et comment les Pères comme Irénée l'ont interprété dans leur théologie ?">
+        <div class="c-title">La récapitulation</div>
+        <div class="c-ref">ἀνακεφαλαίωσις · 1:10</div>
+        <div class="c-desc">Rassembler toutes choses sous un seul chef, le Christ. Notion reprise par Irénée contre les gnostiques.</div>
+      </div>
+      <div class="card" data-q="Que désigne l'expression dans les lieux célestes, ἐν τοῖς ἐπουρανίοις, qui revient cinq fois dans l'épître aux Éphésiens, et quelle est son importance théologique et cosmologique ?">
+        <div class="c-title">Les lieux célestes</div>
+        <div class="c-ref">ἐν τοῖς ἐπουρανίοις</div>
+        <div class="c-desc">Cinq occurrences uniques à cette lettre. Région spirituelle où siège le Christ et où se livre le combat cosmique.</div>
+      </div>
+      <div class="card" data-q="Que signifie la notion de plénitude, πλήρωμα, dans l'épître aux Éphésiens, et comment articule-t-elle la plénitude du Christ et celle de l'Église qui est son corps ?">
+        <div class="c-title">La plénitude</div>
+        <div class="c-ref">πλήρωμα</div>
+        <div class="c-desc">L'Église est la plénitude du Christ qui remplit tout en tous. Notion proprement ecclésiologique et cosmique.</div>
+      </div>
+      <div class="card" data-q="Peux-tu me développer la double image de l'Église comme corps du Christ et comme épouse qui structure toute l'ecclésiologie de l'épître aux Éphésiens ?">
+        <div class="c-title">Corps et épouse</div>
+        <div class="c-ref">ECCLÉSIOLOGIE NUPTIALE</div>
+        <div class="c-desc">L'Église est à la fois le corps dont le Christ est tête et l'épouse pour laquelle il s'est livré. Double image indissociable.</div>
+      </div>
+      <div class="card" data-q="Comment l'épître aux Éphésiens articule-t-elle la prédestination éternelle, notamment en 1:4-5 et 1:11, et comment l'Église catholique l'interprète-t-elle face au calvinisme ?">
+        <div class="c-title">Prédestination</div>
+        <div class="c-ref">Éphésiens 1:4-5 · 1:11</div>
+        <div class="c-desc">Élus avant la fondation du monde, prédestinés à l'adoption. Texte majeur, lu différemment selon les traditions chrétiennes.</div>
+      </div>
+      <div class="card" data-q="Quelle est la théologie de la grâce, χάρις, dans l'épître aux Éphésiens, et pourquoi Paul insiste-t-il autant sur la gratuité du salut face à toute prétention humaine ?">
+        <div class="c-title">La grâce</div>
+        <div class="c-ref">χάρις</div>
+        <div class="c-desc">Douze occurrences. Principe et source du salut. Par grâce vous êtes sauvés, afin que nul ne se glorifie.</div>
+      </div>
+      <div class="card" data-q="Que désignent les puissances, autorités, dominations et souverainetés cosmiques mentionnées à plusieurs reprises dans l'épître aux Éphésiens, et comment les Pères les ont-ils comprises dans leur angélologie ?">
+        <div class="c-title">Puissances cosmiques</div>
+        <div class="c-ref">1:21 · 3:10 · 6:12</div>
+        <div class="c-desc">Principautés, autorités, dominations, souverainetés. Hiérarchies spirituelles, soumises au Christ mais actives dans le combat.</div>
+      </div>
+      <div class="card" data-q="Comment la doctrine trinitaire est-elle articulée dans l'épître aux Éphésiens, notamment à travers le rythme Père, Fils, Esprit qui structure plusieurs passages majeurs de la lettre ?">
+        <div class="c-title">Structure trinitaire</div>
+        <div class="c-ref">1:3-14 · 2:18 · 4:4-6</div>
+        <div class="c-desc">L'épître scande plusieurs fois un rythme trinitaire. La bénédiction initiale, l'accès au Père, les sept unités en sont des exemples.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 RÉCEPTION PATRISTIQUE ET SCOLASTIQUE -->
+<div class="section" data-c="n">
+  <div class="section-head" data-q="Peux-tu me présenter l'ensemble de la réception patristique et scolastique de l'épître aux Éphésiens, avec les principaux commentateurs qui l'ont éclairée et la manière dont chacun l'a interprétée ?">
+    <span class="tag">10</span>
+    <h2>Réception patristique et scolastique</h2>
+    <span class="chev" data-tog>›</span>
+  </div>
+  <div class="separator"></div>
+  <div class="section-content">
+    <div class="cards">
+      <div class="card" data-q="Que dit Jean Chrysostome dans ses Homélies sur l'épître aux Éphésiens, et quelle est la particularité de son exégèse pastorale, morale et ecclésiologique de cette lettre ?">
+        <div class="c-title">Jean Chrysostome</div>
+        <div class="c-ref">HOMÉLIES SUR ÉPHÉSIENS</div>
+        <div class="c-desc">Vingt-quatre homélies prononcées à Antioche ou Constantinople. Lecture pastorale, très attentive à la vie concrète des fidèles.</div>
+      </div>
+      <div class="card" data-q="Comment Jérôme commente-t-il l'épître aux Éphésiens dans son Commentarii in Epistulam ad Ephesios, et quelle est la dette de son commentaire envers Origène ?">
+        <div class="c-title">Jérôme</div>
+        <div class="c-ref">COMMENTAIRE · CA. 386</div>
+        <div class="c-desc">Commentaire détaillé en trois livres, fortement tributaire d'Origène. Importante source de la tradition latine occidentale.</div>
+      </div>
+      <div class="card" data-q="Que retient-on du commentaire de Thomas d'Aquin sur l'épître aux Éphésiens, notamment sur la prédestination, l'Église corps du Christ et le sacrement du mariage ?">
+        <div class="c-title">Thomas d'Aquin</div>
+        <div class="c-ref">LECTURA · EXPOSITIO</div>
+        <div class="c-desc">Lecture scolastique rigoureuse. Développements majeurs sur la prédestination, la grâce, la tête mystique et la sacramentalité du mariage.</div>
+      </div>
+      <div class="card" data-q="Comment saint Augustin utilise-t-il l'épître aux Éphésiens dans sa théologie de la grâce, du péché originel, de l'Église et du mariage, même s'il n'en a pas laissé de commentaire systématique ?">
+        <div class="c-title">Augustin</div>
+        <div class="c-ref">USAGE THÉOLOGIQUE</div>
+        <div class="c-desc">Pas de commentaire suivi, mais mobilisation constante de la lettre, notamment Éphésiens 5 dans la théologie du mariage et 2:3 contre les pélagiens.</div>
+      </div>
+      <div class="card" data-q="Quel est l'apport du commentaire de Marius Victorinus sur l'épître aux Éphésiens, et pourquoi ce commentaire latin du quatrième siècle est-il considéré comme remarquable et fondateur ?">
+        <div class="c-title">Marius Victorinus</div>
+        <div class="c-ref">COMMENTAIRE · IVE SIÈCLE</div>
+        <div class="c-desc">Premier commentaire latin suivi d'une épître paulinienne. Rhéteur converti, style dense, marqué par le néoplatonisme.</div>
+      </div>
+      <div class="card" data-q="Comment Théodoret de Cyr commente-t-il l'épître aux Éphésiens dans son interprétation issue de l'école antiochienne, attentive au sens littéral et historique ?">
+        <div class="c-title">Théodoret de Cyr</div>
+        <div class="c-ref">INTERPRETATIO · VE SIÈCLE</div>
+        <div class="c-desc">Exégèse antiochienne claire et mesurée, attentive au sens littéral, influente dans la tradition grecque postérieure.</div>
+      </div>
+      <div class="card" data-q="Qui est Ambrosiaster, ce commentateur latin anonyme du quatrième siècle, et quelle est la portée de son commentaire sur l'épître aux Éphésiens dans l'Occident chrétien ?">
+        <div class="c-title">Ambrosiaster</div>
+        <div class="c-ref">COMMENTAIRE LATIN · IVE SIÈCLE</div>
+        <div class="c-desc">Commentateur romain anonyme, longtemps attribué à Ambroise. Lecture sobre, juridique, très influente au Moyen Âge.</div>
+      </div>
+      <div class="card" data-q="Que dit Origène sur l'épître aux Éphésiens dans ses commentaires et homélies, et comment son exégèse allégorique a-t-elle marqué toute la tradition patristique qui le suit ?">
+        <div class="c-title">Origène</div>
+        <div class="c-ref">FRAGMENTS · COMMENTAIRE</div>
+        <div class="c-desc">Commentaire en partie perdu, connu par fragments et par la médiation de Jérôme. Lecture spirituelle et allégorique profonde.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">CLIQUEZ SUR UN ÉLÉMENT POUR L'EXPLORER EN PROFONDEUR</div>
+
+</div>
+
+<script>
+function ask(q){
+  if(!q) return;
+  try{
+    if(window.claude && typeof window.claude.sendPrompt==='function'){window.claude.sendPrompt(q);return;}
+  }catch(e){}
+  try{window.parent.postMessage({type:'prompt',prompt:q},'*');}catch(e){}
+}
+
+// Injecter l'icône ⧉ dans chaque carte
+document.querySelectorAll('.card[data-q]').forEach(function(card){
+  var icon=document.createElement('span');
+  icon.className='cp';
+  icon.textContent='⧉';
+  icon.title='Copier la question';
+  card.appendChild(icon);
+});
+
+var cpTimer;
+document.addEventListener('click',function(e){
+  // Copie au clic sur l'icône
+  if(e.target.classList.contains('cp')){
+    e.stopPropagation();
+    var q=e.target.closest('[data-q]').getAttribute('data-q');
+    navigator.clipboard.writeText(q).then(function(){
+      var icon=e.target;
+      icon.classList.add('ok');
+      clearTimeout(cpTimer);
+      cpTimer=setTimeout(function(){icon.classList.remove('ok');},1500);
+    });
+    return;
+  }
+  var tog=e.target.closest('[data-tog]');
+  if(tog){
+    e.stopPropagation();
+    var s=tog.closest('.section');
+    if(s) s.classList.toggle('collapsed');
+    return;
+  }
+  if(e.target.id==='gToggle'){
+    var ss=document.querySelectorAll('.section');
+    var anyOpen=Array.prototype.some.call(ss,function(x){return !x.classList.contains('collapsed');});
+    Array.prototype.forEach.call(ss,function(x){
+      if(anyOpen) x.classList.add('collapsed');
+      else x.classList.remove('collapsed');
+    });
+    e.target.classList.toggle('collapsed',anyOpen);
+    return;
+  }
+  var el=e.target.closest('[data-q]');
+  if(el) ask(el.getAttribute('data-q'));
+});
+
+document.getElementById('gToggle').addEventListener('keydown',function(e){
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();this.click();}
+});
+</script>
+</body>
+</html>
